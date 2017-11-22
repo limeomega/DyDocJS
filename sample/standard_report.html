@@ -2,10 +2,20 @@
 <html>
     <head>
         <title>Standard Report</title>
-        <script src="../js/dydoc.js" />
+        <script src="../js/dypage.js" ></script>
+        <script src="../js/dydoc.js" ></script>
         <script>
             window.onload = function(){
                 var doc = new dydoc('dydoc_dom');
+                doc.load({
+                    pages: [
+                        {
+                            objects:[
+                                {type: 'textbox', x: 10, y: 10, value: 'HELLO DYDOC!!'}
+                            ]
+                        },
+                    ]
+                });
             }
         </script>
     </head>

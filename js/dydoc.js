@@ -31,12 +31,13 @@ dydoc = function () {
         load: function(template){
             if (isLoaded)
                 throw "Already loaded.";
+            else
+                isLoaded = true;
+            
             // parse
             parse(template);
             // rendering 1page
             invalidate();
-
-            isLoaded = true;
         }
     };
 

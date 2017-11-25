@@ -67,16 +67,22 @@ dydoc = function () {
         load: function(template){
             if (isLoaded)
                 throw "Already loaded.";
+            else
+                isLoaded = true;
+            
             // parse
             parse(template);
             // rendering 1page
             invalidate();
+<<<<<<< HEAD
 
             isLoaded = true;
         },
 
         attr: function(name, value){
             
+=======
+>>>>>>> db045969bfc52030e6ace51d0876981360e4e3df
         }
     };
 

@@ -1,5 +1,7 @@
 dydoc = function () {
 
+    var canvas;
+
     var info, // document infomation
         pages; // pages
 
@@ -7,17 +9,45 @@ dydoc = function () {
         isLoaded = false;
 
     var parse = function(template){
-        pages = template.pages;
+        /* template 
+            {
+                info : {
+                    version : (#VERSION_INFOMATION)
+                },
+                pages : [ //page container
+                    {
+
+                    },
+                    {
+
+                    },
+                    ...
+                ]
+            }
+         */
     }
 
-    var invalidate = function(){
+    var invalidate = function(option){
         requestAnimationFrame(function(){
+            if (!canvas)
+                return;
 
+            var ctx = canvas.getContext('2d'),
+                width = canvas.width,
+                height = canvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, width, height);
         }.bind(this));
     }
 
-    var CLASS = function (dom) {
-        this.dom = document.getElementById(dom);
+    var CLASS = function () {
+        canvas = document.createElement('canvas');
+
+        // default A4
+        canvas.width = 793;
+        canvas.height = 1123;
     };
 
     CLASS.prototype = {
@@ -25,7 +55,13 @@ dydoc = function () {
             var parent = document.getElementById(dom);
 
             if (parent && parent.append)
-                parent.append(this.dom);
+                parent.append(canvas);
+
+            return this;
+        },
+
+        getCanvas: function(dom){
+            return canvas;
         },
 
         load: function(template){
@@ -37,6 +73,10 @@ dydoc = function () {
             invalidate();
 
             isLoaded = true;
+        },
+
+        attr: function(name, value){
+            
         }
     };
 

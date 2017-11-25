@@ -74,15 +74,12 @@ dydoc = function () {
             parse(template);
             // rendering 1page
             invalidate();
-<<<<<<< HEAD
 
             isLoaded = true;
         },
 
         attr: function(name, value){
             
-=======
->>>>>>> db045969bfc52030e6ace51d0876981360e4e3df
         }
     };
 

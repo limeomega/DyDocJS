@@ -7,7 +7,10 @@
         <script>
             window.onload = function(){
                 var doc = new dydoc()
-                    .append('dydoc_dom')
+                    .append('body')
+                    .css({
+                        border: '1px solid black'
+                    })
                     .load({
                         pages: [
                             {
@@ -21,6 +24,6 @@
         </script>
     </head>
     <body>
-        <div id="dydoc_dom" style="background-color: lightgray;"></div>
+        
     </body>
 </html>

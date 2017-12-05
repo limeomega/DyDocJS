@@ -51,17 +51,13 @@ dydoc = function () {
     };
 
     CLASS.prototype = {
-        append: function(dom){
-            var parent = document.getElementById(dom);
+        append: function(selector){
+            var parent = document.querySelector(selector);
 
             if (parent && parent.append)
                 parent.append(canvas);
 
             return this;
-        },
-
-        getCanvas: function(dom){
-            return canvas;
         },
 
         load: function(template){
@@ -75,11 +71,25 @@ dydoc = function () {
             // rendering 1page
             invalidate();
 
-            isLoaded = true;
+            return this;
         },
 
-        attr: function(name, value){
-            
+        css: function(cssObject){
+            for (var index in cssObject){
+                if (canvas.style[index] !== undefined)
+                    canvas.style[index] = cssObject[index]; 
+            }
+
+            return this;
+        },
+
+        attr: function(attrObject){
+            for (var index in attrObject){
+                if (canvas[index] !== undefined)
+                    canvas[index] = attrObject[index]; 
+            }
+
+            return this;
         }
     };
 

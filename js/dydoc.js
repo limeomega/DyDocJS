@@ -8,24 +8,27 @@ dydoc = function () {
     var currentPage = 0,
         isLoaded = false;
 
-    var parse = function(template){
-        /* template 
+    /* template 
+    {
+        info : {
+            version : (#VERSION_INFOMATION)
+        },
+        pages : [ //page container
             {
-                info : {
-                    version : (#VERSION_INFOMATION)
+                info: {
+                    size: 'A4' // page kind or '210mm 297mm'
                 },
-                pages : [ //page container
-                    {
+                objects: [
 
-                    },
-                    {
-
-                    },
-                    ...
                 ]
-            }
-         */
+            },
+            {
+
+            },
+            ...
+        ]
     }
+    */
 
     var invalidate = function(option){
         requestAnimationFrame(function(){
@@ -42,12 +45,14 @@ dydoc = function () {
         }.bind(this));
     }
 
-    var CLASS = function () {
+    var CLASS = function (template) {
         canvas = document.createElement('canvas');
 
         // default A4
         canvas.width = 793;
         canvas.height = 1123;
+
+        template && this.load(template);
     };
 
     CLASS.prototype = {
@@ -61,13 +66,22 @@ dydoc = function () {
         },
 
         load: function(template){
+            // validation check
+            //// type check
+            if (typeof template != 'object')
+                throw "Parameter's type is illegal.";
+
+            //// loaded check
             if (isLoaded)
                 throw "Already loaded.";
             else
                 isLoaded = true;
             
-            // parse
-            parse(template);
+            // parsing
+            info = template.info;
+            for (var i in template.pages)
+                pages.push(new dypage(template.pages[i]));
+
             // rendering 1page
             invalidate();
 
